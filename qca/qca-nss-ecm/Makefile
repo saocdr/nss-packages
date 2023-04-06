@@ -62,30 +62,15 @@ EXTRA_CFLAGS+= \
 		 -I$(STAGING_DIR)/usr/include/nat46
 
 ifneq (, $(findstring $(CONFIG_TARGET_BOARD), "ipq807x" "ipq60xx"))
-ECM_MAKE_OPTS:=ECM_IPV6_ENABLE=y
 ECM_MAKE_OPTS+=ECM_FRONT_END_NSS_ENABLE=y \
-                ECM_FRONT_END_SFE_ENABLE=n \
-                ECM_NON_PORTED_SUPPORT_ENABLE=y \
-                ECM_INTERFACE_BOND_ENABLE=n \
-                ECM_INTERFACE_IPSEC_ENABLE=n \
-                ECM_INTERFACE_PPTP_ENABLE=n \
-                ECM_INTERFACE_PPPOE_ENABLE=y \
-                ECM_INTERFACE_L2TPV2_ENABLE=n \
-                ECM_INTERFACE_GRE_TAP_ENABLE=n \
-                ECM_INTERFACE_GRE_TUN_ENABLE=n \
-                ECM_INTERFACE_SIT_ENABLE=n \
-                ECM_INTERFACE_TUNIPIP6_ENABLE=n \
-                ECM_INTERFACE_RAWIP_ENABLE=y \
-                ECM_INTERFACE_VLAN_ENABLE=y \
-                ECM_INTERFACE_VXLAN_ENABLE=y \
-                ECM_INTERFACE_MACVLAN_ENABLE=y \
-                ECM_CLASSIFIER_MARK_ENABLE=y \
-                ECM_CLASSIFIER_DSCP_ENABLE=n \
-                ECM_CLASSIFIER_PCC_ENABLE=n \
-                ECM_CLASSIFIER_MSCS_ENABLE=y \
-                ECM_CLASSIFIER_NL_ENABLE=n \
-                ECM_BAND_STEERING_ENABLE=n \
-                ECM_OPENWRT_SUPPORT=y
+		ECM_FRONT_END_SFE_ENABLE=n \
+		ECM_NON_PORTED_SUPPORT_ENABLE=y \
+		ECM_INTERFACE_BOND_ENABLE=y \
+		ECM_INTERFACE_VLAN_ENABLE=y \
+		ECM_CLASSIFIER_MARK_ENABLE=y \
+		ECM_CLASSIFIER_DSCP_ENABLE=y \
+		ECM_CLASSIFIER_PCC_ENABLE=n \
+		ECM_BAND_STEERING_ENABLE=n
 endif
 
 # Disable ECM IPv6 support when global IPv6 support is disabled.
