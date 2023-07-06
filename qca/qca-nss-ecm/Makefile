@@ -1,14 +1,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qca-nss-ecm
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE=1
 
 PKG_SOURCE_URL:=https://git.codelinaro.org/clo/qsdk/oss/lklm/qca-nss-ecm.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_DATE:=2023-01-20
-PKG_SOURCE_VERSION:=db66c472e07990600bec9f01fb79e103540b0ca3
-PKG_MIRROR_HASH:=613fa9f8ff20984db5296763c35dea8a9ac0a5f507a0c125ea2814a6d4047a3a
-PKG_RELEASE=1
+PKG_SOURCE_DATE:=2023-04-26
+PKG_SOURCE_VERSION:=f9b52bfceedca844c61e2e3df2078be8ee736853
+PKG_MIRROR_HASH:=16d6d10b9544be68758736dee1c0e5c616fb1cf406646fbdf3e7a8db3844e7b3
 
 PKG_BUILD_PARALLEL:=1
 PKG_FLAGS:=nonshared
@@ -47,14 +46,16 @@ This package contains the QCA NSS Enhanced Connection Manager
 endef
 
 define KernelPackage/qca-nss-ecm/install
-	$(INSTALL_DIR) $(1)/etc/firewall.d $(1)/etc/init.d $(1)/usr/bin $(1)/lib/netifd/offload $(1)/etc/config $(1)/etc/uci-defaults $(1)/etc/sysctl.d
+	$(INSTALL_DIR) $(1)/etc/firewall.d $(1)/etc/init.d $(1)/usr/bin $(1)/lib/netifd/offload $(1)/etc/config $(1)/etc/uci-defaults $(1)/etc/sysctl.d $(1)/etc/hotplug.d/net
 	$(INSTALL_DATA) ./files/qca-nss-ecm.firewall $(1)/etc/firewall.d/qca-nss-ecm
 	$(INSTALL_BIN) ./files/qca-nss-ecm.init $(1)/etc/init.d/qca-nss-ecm
 	$(INSTALL_BIN) ./files/ecm_dump.sh $(1)/usr/bin/
+	$(INSTALL_BIN) ./files/disable_offloads.sh $(1)/usr/bin/
 	$(INSTALL_BIN) ./files/on-demand-down $(1)/lib/netifd/offload/on-demand-down
 	$(INSTALL_DATA) ./files/qca-nss-ecm.uci $(1)/etc/config/ecm
 	$(INSTALL_DATA) ./files/qca-nss-ecm.defaults $(1)/etc/uci-defaults/99-qca-nss-ecm
 	$(INSTALL_BIN) ./files/qca-nss-ecm.sysctl $(1)/etc/sysctl.d/qca-nss-ecm.conf
+	$(INSTALL_BIN) ./files/disable_offloads.hotplug $(1)/etc/hotplug.d/net/99-disable_offloads
 endef
 
 EXTRA_CFLAGS+= \
